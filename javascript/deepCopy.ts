@@ -7,11 +7,11 @@ const deepCopy = <T>(obj: T): T => {
     return obj.map((v) => deepCopy(v)) as T
   }
 
-  const copied = {} as Record<string, unknown>
+  const copied = {} as T
 
   Object.keys(obj).forEach((key) => {
-    const val = (obj as Record<string, unknown>)[key] as unknown
-    copied[key] = deepCopy(val)
+    const val = obj[key as keyof T]
+    copied[key as keyof T] = deepCopy(val)
   })
 
   return copied as T
